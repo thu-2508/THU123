@@ -1,0 +1,7 @@
+{
+  "name": "Leisure Quest – Unit 1 Adventure",
+  "description": "Web App trò chơi ôn tập Tiếng Anh 8 Unit 1: Leisure Time - Giáo viên: Vũ Thị Mai Thu",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
