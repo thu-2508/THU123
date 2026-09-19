@@ -258,7 +258,7 @@ export function generateSingleFileHtml(): string {
           <div class="max-w-xl w-full text-center space-y-6">
             <div>
               <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-500/10 border border-sky-400/30 text-sky-300 text-xs font-semibold mb-2">
-                🌟 GIA SƯ THÔNG THÁI TIẾNG ANH 8
+                🌟 SMART AI TUTOR • ENGLISH 8
               </div>
               <h1 class="text-3xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-indigo-300 tracking-tight">
                 LEISURE QUEST
@@ -267,39 +267,39 @@ export function generateSingleFileHtml(): string {
                 UNIT 1 ADVENTURE – LEISURE TIME
               </p>
               <div class="text-xs text-amber-300 font-medium mt-1">
-                Giáo viên biên soạn: <strong>VŨ THỊ MAI THU</strong>
+                Curated by Teacher: <strong>VŨ THỊ MAI THU</strong>
               </div>
             </div>
 
             <div class="flex justify-center">
-              \${renderLumi('greeting', 'Chào em! Mình là Lumi 🤖. Hãy nhập thông tin để chúng mình bắt đầu hành trình 5 chặng Unit 1 nhé!')}
+              \${renderLumi('greeting', 'Hello! I am Lumi 🤖. Enter your student info to begin the Unit 1 quest!')}
             </div>
 
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl text-left space-y-4">
               <div>
                 <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-                  Họ và tên học sinh <span class="text-rose-400">*</span>
+                  Student Full Name <span class="text-rose-400">*</span>
                 </label>
-                <input id="input-name" type="text" value="\${state.profile.name}" placeholder="Ví dụ: Nguyễn Văn An" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 focus:outline-none focus:border-sky-400">
+                <input id="input-name" type="text" value="\${state.profile.name}" placeholder="e.g. Alex Johnson" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 focus:outline-none focus:border-sky-400">
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-                    Lớp <span class="text-rose-400">*</span>
+                    Class <span class="text-rose-400">*</span>
                   </label>
-                  <input id="input-class" type="text" value="\${state.profile.studentClass}" placeholder="Ví dụ: 8A1" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 focus:outline-none focus:border-sky-400">
+                  <input id="input-class" type="text" value="\${state.profile.studentClass}" placeholder="e.g. 8A1" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
                   <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
-                    Trường <span class="text-rose-400">*</span>
+                    School <span class="text-rose-400">*</span>
                   </label>
-                  <input id="input-school" type="text" value="\${state.profile.school}" placeholder="Ví dụ: THCS Chu Văn An" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 focus:outline-none focus:border-sky-400">
+                  <input id="input-school" type="text" value="\${state.profile.school}" placeholder="e.g. Greenfield Secondary School" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 focus:outline-none focus:border-sky-400">
                 </div>
               </div>
 
               <div id="start-error" class="hidden p-3 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-medium">
-                Em hãy nhập đầy đủ họ tên, lớp và trường trước khi bắt đầu nhé!
+                Please enter your full name, class, and school before starting!
               </div>
 
               <button onclick="startGame()" class="w-full py-4 rounded-xl bg-gradient-to-r from-sky-500 via-teal-400 to-indigo-500 hover:from-sky-400 text-slate-950 font-black text-base tracking-wider shadow-lg shadow-sky-500/30 transition cursor-pointer">

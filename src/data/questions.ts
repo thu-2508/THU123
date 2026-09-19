@@ -1,4 +1,4 @@
-import { Question } from '../types';
+import { Question, PartConfig, PartId } from '../types';
 
 export const STAGE_NAMES: Record<number, string> = {
   1: 'Vocabulary Forest',
@@ -234,7 +234,7 @@ export const QUESTIONS_BANK: Question[] = [
     id: 15,
     stage: 2,
     stageName: STAGE_NAMES[2],
-    level: 'Thông hiểu',
+    level: 'Nhận biết',
     type: 'multiple-choice',
     category: 'Verb forms',
     question: 'Choose the correct form of the verb:\n"Do you fancy ___ out for dinner tonight?"',
@@ -249,7 +249,7 @@ export const QUESTIONS_BANK: Question[] = [
     id: 16,
     stage: 2,
     stageName: STAGE_NAMES[2],
-    level: 'Thông hiểu',
+    level: 'Nhận biết',
     type: 'multiple-choice',
     category: 'Verb forms',
     question: 'Choose the correct answer:\n"My mother doesn\'t mind ___ the housework when she has free time."',
@@ -378,7 +378,7 @@ export const QUESTIONS_BANK: Question[] = [
     id: 23,
     stage: 3,
     stageName: STAGE_NAMES[3],
-    level: 'Thông hiểu',
+    level: 'Nhận biết',
     type: 'multiple-choice',
     category: 'Communication',
     question: 'Read the short notice:\n[CHESS CLUB: Open every Tuesday & Friday 4:30 PM in Room 204. Beginners welcome! Free boards provided.]\nWhat is true according to the notice?',
@@ -649,7 +649,7 @@ export const QUESTIONS_BANK: Question[] = [
     id: 37,
     stage: 4,
     stageName: STAGE_NAMES[4],
-    level: 'Thông hiểu',
+    level: 'Nhận biết',
     type: 'multiple-choice',
     category: 'Sentence building',
     question: 'Choose the correct sentence made from the given cues:\n"Ba / not mind / help / his parents / do the chores."',
@@ -669,7 +669,7 @@ export const QUESTIONS_BANK: Question[] = [
     id: 38,
     stage: 4,
     stageName: STAGE_NAMES[4],
-    level: 'Thông hiểu',
+    level: 'Nhận biết',
     type: 'drag-drop',
     category: 'Sentence building',
     question: 'Drag and drop the correct word into the blank:',
@@ -729,7 +729,7 @@ export const QUESTIONS_BANK: Question[] = [
     id: 41,
     stage: 5,
     stageName: STAGE_NAMES[5],
-    level: 'Thông hiểu',
+    level: 'Nhận biết',
     type: 'multiple-choice',
     category: 'Reading and writing',
     question: 'Read the short email excerpt:\n"Hi Mai,\nI am having a wonderful summer vacation. Every morning, I go cycling with my grandfather around West Lake. In the afternoon, I am really into making origami animals. I made a paper frog yesterday!\nWhat about you? What are your favourite leisure activities this summer?\nWrite back soon,\nLily"\nWhat does Lily do in the morning?',
@@ -823,7 +823,7 @@ export const QUESTIONS_BANK: Question[] = [
     id: 46,
     stage: 5,
     stageName: STAGE_NAMES[5],
-    level: 'Thông hiểu',
+    level: 'Nhận biết',
     type: 'multiple-choice',
     category: 'Reading and writing',
     question: 'Read the poster announcement:\n[JOIN THE GREEN TEENS CLUB!\nActivities: Planting trees in the school garden, recycling paper, cleaning local parks.\nWhen: Every Sunday morning from 8:00 AM to 10:30 AM.\nBenefits: Meet new friends, protect nature, receive green certificates.]\nWhich activity is NOT mentioned in the poster?',
@@ -908,3 +908,151 @@ export const QUESTIONS_BANK: Question[] = [
     tip: 'Dòng cá nhân hóa gắn liền với thông điệp giáo dục ý nghĩa của cô giáo Vũ Thị Mai Thu.'
   }
 ];
+
+// ==========================================
+// CẤU TRÚC 4 PHẦN CHƠI THEO YÊU CẦU SƯ PHẠM
+// PHẦN 1: TRẮC NGHIỆM (15 câu - 10 phút)
+// PHẦN 2: SPEAKING (5 câu - 5 phút)
+// PHẦN 3: READING (5 câu - 5 phút)
+// PHẦN 4: WRITING (5 câu - 5 phút)
+// Ma trận: 70% Nhận biết, 15% Thông hiểu, 15% Vận dụng
+// Điểm số: 10 điểm / câu
+// ==========================================
+
+export const PART_CONFIGS: Record<PartId, PartConfig> = {
+  part1: {
+    id: 'part1',
+    partNumber: 1,
+    title: 'PART 1: MULTIPLE CHOICE',
+    englishTitle: 'Vocabulary, Prepositions & Verb Forms',
+    subtitle: 'Vocabulary, Prepositions & Verb Forms',
+    questionCount: 15,
+    timeLimitMinutes: 10,
+    timeLimitSeconds: 600,
+    maxScore: 150,
+    badge: '15 Questions • 10 Mins • Max 150 Pts',
+    color: 'sky',
+    description: '15 four-option multiple-choice questions (A, B, C, D) testing vocabulary, prepositions, and verbs of liking and disliking.',
+    levelBreakdown: {
+      nhanBiet: 11, // 73.3%
+      thongHieu: 2, // 13.3%
+      vanDung: 2,   // 13.3%
+    },
+  },
+  part2: {
+    id: 'part2',
+    partNumber: 2,
+    title: 'PART 2: SPEAKING',
+    englishTitle: 'Speaking & Conversational Exchanges',
+    subtitle: 'Conversational Exchanges & Invitations',
+    questionCount: 5,
+    timeLimitMinutes: 5,
+    timeLimitSeconds: 300,
+    maxScore: 50,
+    badge: '5 Questions • 5 Mins • Max 50 Pts',
+    color: 'emerald',
+    description: '5 dialogue and speaking exchanges: Asking and answering about leisure activities, inviting, and polite refusal.',
+    levelBreakdown: {
+      nhanBiet: 3, // 60%
+      thongHieu: 1, // 20%
+      vanDung: 1,   // 20%
+    },
+  },
+  part3: {
+    id: 'part3',
+    partNumber: 3,
+    title: 'PART 3: READING',
+    englishTitle: 'Reading Comprehension & Notices',
+    subtitle: 'Notices, Posters, Emails & Passages',
+    questionCount: 5,
+    timeLimitMinutes: 5,
+    timeLimitSeconds: 300,
+    maxScore: 50,
+    badge: '5 Questions • 5 Mins • Max 50 Pts',
+    color: 'amber',
+    description: '5 reading comprehension tasks: Short summer emails, chess club notices, posters, and benefits of balanced leisure.',
+    levelBreakdown: {
+      nhanBiet: 3, // 60%
+      thongHieu: 1, // 20%
+      vanDung: 1,   // 20%
+    },
+  },
+  part4: {
+    id: 'part4',
+    partNumber: 4,
+    title: 'PART 4: WRITING',
+    englishTitle: 'Writing & Sentence Building',
+    subtitle: 'Sentence Building, Word Order & Rewriting',
+    questionCount: 5,
+    timeLimitMinutes: 5,
+    timeLimitSeconds: 300,
+    maxScore: 50,
+    badge: '5 Questions • 5 Mins • Max 50 Pts',
+    color: 'indigo',
+    description: '5 sentence building and writing tasks: Word arrangement, drag-and-drop unscramble, and sentence rewriting with prompt words.',
+    levelBreakdown: {
+      nhanBiet: 3, // 60%
+      thongHieu: 1, // 20%
+      vanDung: 1,   // 20%
+    },
+  },
+  all: {
+    id: 'all',
+    partNumber: 0,
+    title: 'COMPLETE QUEST: ALL 4 PARTS',
+    englishTitle: 'All 4 Parts Combined',
+    subtitle: 'Multiple Choice • Speaking • Reading • Writing',
+    questionCount: 30,
+    timeLimitMinutes: 25,
+    timeLimitSeconds: 1500,
+    maxScore: 300,
+    badge: '30 Questions • 25 Mins • Max 300 Pts',
+    color: 'purple',
+    description: 'Complete all 30 questions across all 4 parts to thoroughly evaluate your Unit 1 English proficiency.',
+    levelBreakdown: {
+      nhanBiet: 20, // 66.7% ≈ 70%
+      thongHieu: 5, // 16.7% ≈ 15%
+      vanDung: 5,   // 16.7% ≈ 15%
+    },
+  },
+};
+
+// Curated question IDs adhering strictly to the 70% Nhận biết / 15% Thông hiểu / 15% Vận dụng matrix
+export const PART_1_IDS = [1, 2, 3, 7, 10, 11, 12, 13, 14, 15, 16, 4, 6, 20, 39]; // 15 questions
+export const PART_2_IDS = [21, 22, 28, 27, 26];                                     // 5 questions
+export const PART_3_IDS = [41, 46, 23, 48, 42];                                     // 5 questions
+export const PART_4_IDS = [35, 38, 37, 31, 33];                                     // 5 questions
+export const ALL_PARTS_IDS = [...PART_1_IDS, ...PART_2_IDS, ...PART_3_IDS, ...PART_4_IDS]; // 30 questions
+
+/**
+ * Returns the exact list of questions for the selected game part,
+ * tagged with the corresponding partId and ready for gameplay.
+ */
+export function getQuestionsForPart(partId: PartId): Question[] {
+  let ids: number[] = [];
+  if (partId === 'part1') ids = PART_1_IDS;
+  else if (partId === 'part2') ids = PART_2_IDS;
+  else if (partId === 'part3') ids = PART_3_IDS;
+  else if (partId === 'part4') ids = PART_4_IDS;
+  else ids = ALL_PARTS_IDS;
+
+  const map = new Map<number, Question>();
+  QUESTIONS_BANK.forEach(q => map.set(q.id, q));
+
+  return ids
+    .map(id => map.get(id))
+    .filter((q): q is Question => Boolean(q))
+    .map(q => {
+      // Determine partId for individual question
+      let assignedPart: PartId = 'part1';
+      if (PART_2_IDS.includes(q.id)) assignedPart = 'part2';
+      else if (PART_3_IDS.includes(q.id)) assignedPart = 'part3';
+      else if (PART_4_IDS.includes(q.id)) assignedPart = 'part4';
+      
+      return {
+        ...q,
+        partId: assignedPart
+      };
+    });
+}
+

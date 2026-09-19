@@ -16,6 +16,11 @@ interface QuestionCardProps {
   onNextQuestion: () => void;
   soundEnabled: boolean;
   onToggleSound: () => void;
+  partTitle?: string;
+  partSubtitle?: string;
+  sectionTimeLeft?: number;
+  sectionTotalSeconds?: number;
+  onBackToMenu?: () => void;
 }
 
 const PRAISE_LIST = [
@@ -37,8 +42,13 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   onNextQuestion,
   soundEnabled,
   onToggleSound,
+  partTitle,
+  partSubtitle,
+  sectionTimeLeft,
+  sectionTotalSeconds,
+  onBackToMenu,
 }) => {
-  // Timer (50 seconds)
+  // Timer fallback
   const [timeLeft, setTimeLeft] = useState<number>(50);
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
   const [isTimedOut, setIsTimedOut] = useState<boolean>(false);
@@ -227,7 +237,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   const getLevelLabel = () => {
     switch (question.level) {
       case 'Nhận biết':
-        return 'Knowledge';
+        return 'Recognition';
       case 'Thông hiểu':
         return 'Comprehension';
       case 'Vận dụng':
@@ -250,8 +260,18 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     }
   };
 
+  const isSectionTimer = sectionTimeLeft !== undefined && sectionTotalSeconds !== undefined;
+  const currentTimerSec = isSectionTimer ? sectionTimeLeft : timeLeft;
+  const totalTimerSec = isSectionTimer ? sectionTotalSeconds : 50;
+  const timerRatio = Math.max(0, Math.min(1, currentTimerSec / (totalTimerSec || 1)));
+
+  const formatMinSec = (sec: number) => {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  };
+
   const progressPercent = Math.round(((currentIndex + 1) / totalQuestions) * 100);
-  const timerRatio = Math.max(0, timeLeft / 50);
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-4 sm:py-6">
@@ -259,9 +279,18 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
       <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl mb-4">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
           {/* Stage & Index info */}
-          <div className="flex items-center gap-2.5">
-            <span className="px-3 py-1 rounded-xl bg-indigo-500/20 border border-indigo-400/40 text-indigo-300 text-xs sm:text-sm font-bold">
-              Stage {question.stage}: {question.stageName.split('(')[0].trim()}
+          <div className="flex flex-wrap items-center gap-2">
+            {onBackToMenu && (
+              <button
+                onClick={onBackToMenu}
+                className="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1 transition cursor-pointer"
+                title="Back to menu"
+              >
+                <span>🏠 Menu</span>
+              </button>
+            )}
+            <span className="px-3 py-1 rounded-xl bg-sky-500/20 border border-sky-400/40 text-sky-300 text-xs sm:text-sm font-black tracking-wide">
+              {partTitle || `Stage ${question.stage}: ${question.stageName.split('(')[0].trim()}`}
             </span>
             <span className={`px-2.5 py-0.5 rounded-lg border text-xs font-semibold ${getLevelBadgeClass()}`}>
               {getLevelLabel()}
@@ -293,15 +322,20 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
         {/* Timer Bar */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-300 min-w-[70px]">
-            <Clock className={`w-4 h-4 ${timeLeft <= 10 ? 'text-amber-400 animate-bounce' : 'text-sky-400'}`} />
-            <span className={timeLeft <= 10 ? 'text-amber-400 font-extrabold' : ''}>{timeLeft}s</span>
+          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-300 min-w-[90px]">
+            <Clock className={`w-4 h-4 ${currentTimerSec <= 60 ? 'text-rose-400 animate-pulse' : 'text-sky-400'}`} />
+            <span className={currentTimerSec <= 60 ? 'text-rose-400 font-black' : ''}>
+              {formatMinSec(currentTimerSec)}
+            </span>
+            <span className="text-[10px] text-slate-500">
+              /{formatMinSec(totalTimerSec)}
+            </span>
           </div>
 
           <div className="flex-1 h-2.5 bg-slate-800 rounded-full overflow-hidden">
             <div
               className={`h-full transition-all duration-1000 rounded-full ${
-                timeLeft <= 10 ? 'bg-amber-400' : 'bg-sky-400'
+                currentTimerSec <= 60 ? 'bg-rose-500' : 'bg-sky-400'
               }`}
               style={{ width: `${timerRatio * 100}%` }}
             />

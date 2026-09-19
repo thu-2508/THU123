@@ -16,6 +16,8 @@ interface ResultScreenProps {
   onPlayAgain: () => void;
   onOpenPractice: () => void;
   onDownloadSingleHtml: () => void;
+  partTitle?: string;
+  onChooseAnotherPart?: () => void;
 }
 
 export const ResultScreen: React.FC<ResultScreenProps> = ({
@@ -29,6 +31,8 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
   onPlayAgain,
   onOpenPractice,
   onDownloadSingleHtml,
+  partTitle,
+  onChooseAnotherPart,
 }) => {
   const [copied, setCopied] = useState<boolean>(false);
 
@@ -99,26 +103,26 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
   let lumiSummarySpeech = '';
 
   if (percentage >= 90) {
-    tierTitle = 'XUẤT SẮC – Em đã nắm vững kiến thức Unit 1!';
+    tierTitle = 'EXCELLENT – You have mastered Unit 1!';
     tierColor = 'from-amber-400 to-yellow-200 text-amber-300';
-    lumiSummarySpeech = `Thật tuyệt vời ${profile.name}! Em đạt kết quả xuất sắc ${percentage}%. Toàn bộ kiến thức Unit 1: Leisure Time đã được em vận dụng rất thành thạo!`;
+    lumiSummarySpeech = `Outstanding job, ${profile.name}! You scored an impressive ${percentage}%. You have thoroughly mastered Unit 1: Leisure Time!`;
   } else if (percentage >= 70) {
-    tierTitle = 'HOÀN THÀNH TỐT – Em hãy luyện thêm các câu đã làm sai nhé!';
+    tierTitle = 'WELL DONE – Practice your mistakes to reach 100%!';
     tierColor = 'from-emerald-400 to-teal-300 text-emerald-300';
-    lumiSummarySpeech = `Chúc mừng ${profile.name}! Em đã hoàn thành tốt hành trình với ${percentage}%. Hãy vào "Phòng luyện lại" để khắc phục nốt các lỗi nhỏ nhé!`;
+    lumiSummarySpeech = `Congratulations, ${profile.name}! You did great with ${percentage}%. Try the Practice Mistakes room to review any small errors!`;
   } else if (percentage >= 50) {
-    tierTitle = 'CẦN CỐ GẮNG – Em nên ôn lại từ vựng và cấu trúc chỉ sở thích.';
+    tierTitle = 'GOOD EFFORT – Review vocabulary and liking verbs!';
     tierColor = 'from-sky-400 to-indigo-300 text-sky-300';
-    lumiSummarySpeech = `Em đã rất nỗ lực! Hãy chú ý ôn tập thêm phần ${weakestCat} và cấu trúc like/enjoy/prefer để bứt phá điểm số cao hơn nhé!`;
+    lumiSummarySpeech = `Great effort, ${profile.name}! Pay extra attention to ${weakestCat} and verbs like enjoy/prefer to boost your score higher!`;
   } else {
-    tierTitle = 'HÃY THỬ LẠI – Mỗi lần luyện tập là một bước tiến!';
+    tierTitle = 'KEEP TRYING – Every practice makes you better!';
     tierColor = 'from-rose-400 to-pink-300 text-rose-300';
-    lumiSummarySpeech = `Đừng nản lòng nhé! Hãy xem lại phần giải thích chi tiết trong "Phòng luyện lại" và chơi lại một lượt nữa cùng Lumi!`;
+    lumiSummarySpeech = `Never give up! Review the detailed explanations in Practice Mistakes and try another round with Lumi!`;
   }
 
   // Generate parent notification text
-  const parentNoticeText = `Học sinh ${profile.name} – lớp ${profile.studentClass} (Trường ${profile.school}) đã hoàn thành bài ôn tập Unit 1: Leisure Time với kết quả ${correctCount}/${totalCount} câu đúng (${totalScore}/${maxScore} điểm), đạt ${percentage}%. Nội dung cần luyện thêm: ${
-    weakestCat ? weakestCat : 'Không có'
+  const parentNoticeText = `Student ${profile.name} – Class ${profile.studentClass} (${profile.school}) has completed Unit 1: Leisure Time quest with ${correctCount}/${totalCount} correct answers (${totalScore}/${maxScore} pts), achieving ${percentage}%. Area to practice: ${
+    weakestCat ? weakestCat : 'None'
   }.`;
 
   const handleCopyParentReport = () => {
@@ -130,15 +134,15 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
 
   const minutes = Math.floor(totalTimeSeconds / 60);
   const seconds = totalTimeSeconds % 60;
-  const timeFormatted = `${minutes} phút ${seconds} giây`;
-  const currentDate = new Date().toLocaleDateString('vi-VN');
+  const timeFormatted = `${minutes}m ${seconds}s`;
+  const currentDate = new Date().toLocaleDateString('en-US');
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-6 space-y-6">
       {/* Top Banner */}
       <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 text-center shadow-2xl space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-500/10 border border-sky-400/30 text-sky-300 text-xs font-semibold">
-          <span>KẾT QUẢ HÀNH TRÌNH LEISURE QUEST</span>
+          <span>{partTitle ? `RESULTS: ${partTitle}` : 'LEISURE QUEST RESULTS'}</span>
         </div>
 
         <h1 className={`text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r ${tierColor} bg-clip-text text-transparent font-['Outfit',sans-serif]`}>
@@ -146,8 +150,8 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
         </h1>
 
         <p className="text-sm text-slate-300 max-w-xl mx-auto">
-          Học sinh: <strong className="text-white">{profile.name}</strong> • Lớp:{' '}
-          <strong className="text-sky-300">{profile.studentClass}</strong> • Trường:{' '}
+          Student: <strong className="text-white">{profile.name}</strong> • Class:{' '}
+          <strong className="text-sky-300">{profile.studentClass}</strong> • School:{' '}
           <strong className="text-teal-300">{profile.school}</strong>
         </p>
 
@@ -163,7 +167,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
       {/* Metrics Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
-          <span className="text-xs text-slate-400 block mb-1">Tổng điểm đạt được</span>
+          <span className="text-xs text-slate-400 block mb-1">Total Score Earned</span>
           <span className="text-2xl sm:text-3xl font-black text-amber-400">
             {totalScore}
             <span className="text-sm text-slate-500 font-normal"> / {maxScore}</span>
@@ -171,14 +175,14 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
         </div>
 
         <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
-          <span className="text-xs text-slate-400 block mb-1">Tỉ lệ chính xác</span>
+          <span className="text-xs text-slate-400 block mb-1">Accuracy Rate</span>
           <span className="text-2xl sm:text-3xl font-black text-emerald-400">
             {percentage}%
           </span>
         </div>
 
         <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
-          <span className="text-xs text-slate-400 block mb-1">Số câu Đúng / Sai</span>
+          <span className="text-xs text-slate-400 block mb-1">Correct / Incorrect</span>
           <div className="flex items-center justify-center gap-2 text-xl sm:text-2xl font-black">
             <span className="text-emerald-400">{correctCount}</span>
             <span className="text-slate-600">/</span>
@@ -187,7 +191,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
         </div>
 
         <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 text-center">
-          <span className="text-xs text-slate-400 block mb-1">Thời gian hoàn thành</span>
+          <span className="text-xs text-slate-400 block mb-1">Time Completed</span>
           <div className="flex items-center justify-center gap-1.5 text-sm sm:text-base font-bold text-slate-200 mt-1">
             <Clock className="w-4 h-4 text-sky-400" />
             <span>{timeFormatted}</span>
@@ -200,7 +204,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
         <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
           <BarChart3 className="w-5 h-5 text-sky-400" />
           <h2 className="text-base font-bold text-slate-100">
-            Phân tích năng lực theo nhóm kiến thức Unit 1
+            Performance Analysis by Unit 1 Skill Area
           </h2>
         </div>
 
@@ -214,7 +218,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
                 <div className="flex justify-between text-xs sm:text-sm font-semibold">
                   <span className="text-slate-300">{cat}</span>
                   <span className="text-slate-400">
-                    {stats.correct}/{stats.total} câu ({rate}%)
+                    {stats.correct}/{stats.total} questions ({rate}%)
                   </span>
                 </div>
                 <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
@@ -232,24 +236,24 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
 
         {/* Personalized Advice */}
         <div className="p-4 rounded-xl bg-slate-950/70 border border-slate-800 text-xs sm:text-sm text-slate-300 space-y-1">
-          <strong className="text-amber-300 block font-bold">💡 Lời khuyên cá nhân hóa:</strong>
+          <strong className="text-amber-300 block font-bold">💡 Personalized Advice:</strong>
           {weakestCat === 'Prepositions' && (
-            <p>Em nên ôn lại các giới từ đi kèm tính từ chỉ sở thích: <em>keen on, fond of, crazy about, interested in, be into</em>.</p>
+            <p>Review prepositions following adjectives of liking: <em>keen on, fond of, crazy about, interested in, be into</em>.</p>
           )}
           {weakestCat === 'Verb forms' && (
-            <p>Ghi nhớ: Sau <em>fancy, adore, enjoy, dislike, detest, don't mind</em> luôn dùng động từ ở dạng <strong>V-ing</strong>.</p>
+            <p>Remember: Verbs of liking/disliking like <em>fancy, adore, enjoy, dislike, detest, don't mind</em> are followed by <strong>V-ing</strong>.</p>
           )}
           {weakestCat === 'Sentence building' && (
-            <p>Ôn lại cấu trúc so sánh sở thích: <em>prefer V-ing to V-ing</em> và <em>spend time + V-ing</em>.</p>
+            <p>Review comparative leisure structures: <em>prefer V-ing to V-ing</em> and <em>spend time + V-ing</em>.</p>
           )}
           {weakestCat === 'Vocabulary' && (
-            <p>Em hãy ghi nhớ các từ vựng về hoạt động giải trí như <em>origami, DIY, board games, puzzles</em>.</p>
+            <p>Remember leisure activity vocabulary such as <em>origami, DIY, board games, puzzles</em>.</p>
           )}
           {weakestCat === 'Communication' && (
-            <p>Luyện tập cách nhận lời mời <em>"I'd love to!"</em> và từ chối lịch sự <em>"I'd love to, but..."</em>.</p>
+            <p>Practice accepting invitations (<em>"I'd love to!"</em>) and polite refusals (<em>"I'd love to, but..."</em>).</p>
           )}
           {weakestCat === 'Reading and writing' && (
-            <p>Rèn luyện kỹ năng đọc lướt thông báo, biển báo và phân biệt <em>every day</em> (trạng từ) và <em>everyday</em> (tính từ).</p>
+            <p>Practice skimming notices, posters, and differentiating <em>every day</em> (adverbial) vs <em>everyday</em> (adjective).</p>
           )}
         </div>
       </div>
@@ -271,7 +275,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
       <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 text-left space-y-3 shadow-xl">
         <div className="flex items-center justify-between">
           <span className="text-xs sm:text-sm font-bold text-slate-200">
-            Tin nhắn báo cáo kết quả gửi phụ huynh
+            Parent Progress Report Message
           </span>
           <button
             onClick={handleCopyParentReport}
@@ -286,18 +290,27 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
           {parentNoticeText}
         </div>
         <p className="text-[11px] text-slate-500">
-          * Em hoặc phụ huynh có thể dán đoạn văn bản trên vào Zalo hoặc tin nhắn để lưu kết quả bài tập.
+          * You or your parents can copy this report to messages or notes to save your progress.
         </p>
       </div>
 
       {/* Footer Navigation Buttons */}
       <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+        {onChooseAnotherPart && (
+          <button
+            onClick={onChooseAnotherPart}
+            className="px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-100 font-black text-sm flex items-center gap-2 transition active:scale-95 cursor-pointer shadow-md"
+          >
+            <span>🏠 CHOOSE ANOTHER PART</span>
+          </button>
+        )}
+
         <button
           onClick={onPlayAgain}
           className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-slate-950 font-black text-sm flex items-center gap-2 shadow-lg shadow-sky-500/25 transition active:scale-95 cursor-pointer"
         >
           <RotateCcw className="w-4 h-4" />
-          <span>PLAY AGAIN (25 QUESTIONS)</span>
+          <span>RETRY THIS PART ({answers.length} QUESTIONS)</span>
         </button>
 
         {mistakes.length > 0 && (

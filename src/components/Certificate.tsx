@@ -59,15 +59,15 @@ export const Certificate: React.FC<CertificateProps> = ({
         <div class="cert-container">
           <div class="seal">🏆</div>
           <div class="title">CERTIFICATE OF COMPLETION</div>
-          <div class="subtitle">GIẤY CHỨNG NHẬN HOÀN THÀNH XUẤT SẮC</div>
+          <div class="subtitle">UNIT 1: LEISURE TIME – GLOBAL SUCCESS 8</div>
           <div class="presented">This certificate is proudly presented to:</div>
           <div class="name">${profile.name}</div>
-          <div class="reason">For successfully completing the adventure quest:<br><strong class="quest">LEISURE QUEST – UNIT 1 ADVENTURE</strong></div>
+          <div class="reason">For successfully completing the challenge quest:<br><strong class="quest">LEISURE QUEST – UNIT 1 ADVENTURE</strong></div>
           <div class="details">
-            <div><strong>Class (Lớp):</strong> ${profile.studentClass}</div>
-            <div><strong>School (Trường):</strong> ${profile.school}</div>
-            <div><strong>Score (Điểm):</strong> ${score}/${totalScore} (${percentage}%)</div>
-            <div><strong>Date (Ngày):</strong> ${dateStr}</div>
+            <div><strong>Class:</strong> ${profile.studentClass}</div>
+            <div><strong>School:</strong> ${profile.school}</div>
+            <div><strong>Score:</strong> ${score}/${totalScore} (${percentage}%)</div>
+            <div><strong>Date:</strong> ${dateStr}</div>
           </div>
           <div class="signature-area">
             <div>
@@ -77,7 +77,7 @@ export const Certificate: React.FC<CertificateProps> = ({
             <div>
               <div style="height: 35px; border-bottom: 1.5px solid #94a3b8; width: 180px; margin-bottom: 6px;"></div>
               <div class="teacher">VŨ THỊ MAI THU</div>
-              <div class="teacher-title">Giáo viên Tiếng Anh THCS</div>
+              <div class="teacher-title">Secondary English Teacher</div>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@ export const Certificate: React.FC<CertificateProps> = ({
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Chung-nhan-${profile.name.replace(/\s+/g, '_')}-Unit1.html`;
+    a.download = `Certificate-${profile.name.replace(/\s+/g, '_')}-Unit1.html`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -121,7 +121,7 @@ export const Certificate: React.FC<CertificateProps> = ({
           CERTIFICATE OF COMPLETION
         </h2>
         <p className="text-xs sm:text-sm text-sky-300 font-semibold tracking-widest uppercase mt-1">
-          CHỨNG NHẬN HOÀN THÀNH XUẤT SẮC
+          OFFICIAL EXCELLENCE RECOGNITION
         </p>
 
         {/* Proudly presented */}
@@ -148,19 +148,19 @@ export const Certificate: React.FC<CertificateProps> = ({
         {/* Metadata Details Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-900/90 border border-slate-800 rounded-2xl p-4 my-6 text-xs sm:text-sm max-w-2xl mx-auto">
           <div>
-            <span className="text-slate-400 block text-[11px] uppercase">Class (Lớp)</span>
+            <span className="text-slate-400 block text-[11px] uppercase">Class</span>
             <strong className="text-slate-100 font-bold">{profile.studentClass}</strong>
           </div>
           <div>
-            <span className="text-slate-400 block text-[11px] uppercase">School (Trường)</span>
+            <span className="text-slate-400 block text-[11px] uppercase">School</span>
             <strong className="text-slate-100 font-bold truncate block">{profile.school}</strong>
           </div>
           <div>
-            <span className="text-slate-400 block text-[11px] uppercase">Score (Điểm)</span>
+            <span className="text-slate-400 block text-[11px] uppercase">Score</span>
             <strong className="text-amber-300 font-bold">{score}/{totalScore} ({percentage}%)</strong>
           </div>
           <div>
-            <span className="text-slate-400 block text-[11px] uppercase">Date (Ngày)</span>
+            <span className="text-slate-400 block text-[11px] uppercase">Date</span>
             <strong className="text-slate-100 font-bold">{dateStr}</strong>
           </div>
         </div>
@@ -168,7 +168,7 @@ export const Certificate: React.FC<CertificateProps> = ({
         {/* Signature & Teacher info */}
         <div className="flex items-center justify-between max-w-2xl mx-auto pt-4 border-t border-slate-800/80 text-left">
           <div>
-            <div className="text-[11px] text-slate-400">Gia sư thông thái Tiếng Anh 8</div>
+            <div className="text-[11px] text-slate-400">Smart AI Tutor • English 8</div>
             <div className="text-xs font-bold text-sky-400">LEISURE QUEST 8</div>
           </div>
 
@@ -176,7 +176,7 @@ export const Certificate: React.FC<CertificateProps> = ({
             <div className="text-sm sm:text-base font-extrabold text-amber-300">
               VŨ THỊ MAI THU
             </div>
-            <div className="text-[11px] text-slate-400">Giáo viên Tiếng Anh THCS</div>
+            <div className="text-[11px] text-slate-400">Secondary English Teacher</div>
           </div>
         </div>
       </div>

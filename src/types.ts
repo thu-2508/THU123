@@ -1,5 +1,27 @@
 export type Level = 'Nhận biết' | 'Thông hiểu' | 'Vận dụng';
 
+export type PartId = 'part1' | 'part2' | 'part3' | 'part4' | 'all';
+
+export interface PartConfig {
+  id: PartId;
+  partNumber: number;
+  title: string;
+  englishTitle: string;
+  subtitle: string;
+  questionCount: number;
+  timeLimitMinutes: number;
+  timeLimitSeconds: number;
+  maxScore: number;
+  badge: string;
+  color: string;
+  description: string;
+  levelBreakdown: {
+    nhanBiet: number;
+    thongHieu: number;
+    vanDung: number;
+  };
+}
+
 export type Category = 
   | 'Vocabulary' 
   | 'Prepositions' 
@@ -25,6 +47,7 @@ export interface MatchingPair {
 
 export interface Question {
   id: number;
+  partId?: PartId;
   stage: 1 | 2 | 3 | 4 | 5;
   stageName: string;
   level: Level;

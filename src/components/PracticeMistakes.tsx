@@ -27,9 +27,9 @@ export const PracticeMistakes: React.FC<PracticeMistakesProps> = ({
         <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center text-3xl">
           🌟
         </div>
-        <h2 className="text-2xl font-black text-slate-100">Chúc mừng em!</h2>
+        <h2 className="text-2xl font-black text-slate-100">Congratulations!</h2>
         <p className="text-slate-300">
-          Em không có câu sai nào trong lượt chơi này! Em đã hoàn thành xuất sắc toàn bộ câu hỏi.
+          You made no mistakes in this run! You have brilliantly mastered all questions.
         </p>
         <button
           onClick={onBackToResults}
@@ -99,13 +99,13 @@ export const PracticeMistakes: React.FC<PracticeMistakesProps> = ({
           </button>
           <div>
             <h1 className="text-xl sm:text-2xl font-black text-slate-100 flex items-center gap-2">
-              <span>PHÒNG LUYỆN LẠI</span>
+              <span>PRACTICE ROOM</span>
               <span className="text-xs px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40">
-                {mistakesList.length} câu cần ôn
+                {mistakesList.length} to review
               </span>
             </h1>
             <p className="text-xs text-slate-400">
-              Khắc phục lỗ hổng kiến thức – Luyện tập cho tới khi trả lời đúng
+              Target knowledge gaps – Practice until you achieve 100% accuracy
             </p>
           </div>
         </div>
